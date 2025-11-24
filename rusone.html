@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RUSONE | Русификация Авто 2024-2025</title>
+    <meta name="description" content="Профессиональная русификация мультимедиа для Geely, Toyota, Changan, Exeed. Установка Яндекс.Навигатора, YouTube, онлайн-ТВ с полным сохранением дилерской гарантии.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Roboto', 'sans-serif'],
+                    },
+                    colors: {
+                        apple: {
+                            bg: '#000000',
+                            card: '#1c1c1e',
+                            text: '#f2f2f7',
+                            link: '#2997ff',
+                            border: '#333333',
+                            blue: '#2997ff',
+                        },
+                        map: {
+                            base: '#1c1c1e',
+                            overlay: '#222222',
+                            active: '#2997ff',
+                        },
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        pulseSlow: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.6' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s ease-out forwards',
+                        'pulse-slow': 'pulseSlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-slow': 'float 5s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="stylesheet" href="custom.css">
+
+</head>
+<body class="app-background-gradient text-apple-text font-sans antialiased">
+    <header class="sticky top-0 z-50">
+        <nav id="navbar" class="glass-card shadow-lg mx-auto max-w-7xl px-4 lg:px-8 py-2 flex justify-between items-center transition-all duration-300">
+            <a href="#hero" class="text-xl font-bold tracking-tight text-apple-text">
+                <span class="text-apple-blue">RUS</span>ONE
+            </a>
+
+            <div class="hidden lg:flex space-x-8 text-sm font-medium">
+                <a href="#features" class="hover:text-apple-blue transition duration-200">Возможности</a>
+                <a href="#demo" class="hover:text-apple-blue transition duration-200">Демо</a>
+                <a href="#cars" class="hover:text-apple-blue transition duration-200">Авто</a>
+                <a href="#pricing" class="hover:text-apple-blue transition duration-200">Цены</a>
+                <a href="#faq" class="hover:text-apple-blue transition duration-200">FAQ</a>
+                <a href="#map" class="hover:text-apple-blue transition duration-200">Контакты</a>
+            </div>
+
+            <a href="https://wa.me/77073335550" target="_blank" class="hidden lg:flex bg-apple-blue hover:bg-opacity-90 text-black px-6 py-2 rounded-full text-sm font-semibold transition duration-300 shadow-xl">
+                Записаться
+            </a>
+
+            <button id="menu-toggle" class="lg:hidden p-2 text-apple-text z-[100]">
+                <span class="material-symbols-outlined text-3xl">menu</span>
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-black/95 backdrop-blur-md z-40 hidden lg:hidden flex-col items-center justify-center space-y-8 transition-opacity duration-300 opacity-0">
+            <button id="menu-close" class="absolute top-4 right-4 p-2 text-apple-text">
+                <span class="material-symbols-outlined text-3xl">close</span>
+            </button>
+            <a href="#features" class="text-3xl font-medium text-apple-text hover:text-apple-blue" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('opacity-100');">Возможности</a>
+            <a href="#demo" class="text-3xl font-medium text-apple-text hover:text-apple-blue" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('opacity-100');">Демо</a>
+            <a href="#cars" class="text-3xl font-medium text-apple-text hover:text-apple-blue" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('opacity-100');">Авто</a>
+            <a href="#pricing" class="text-3xl font-medium text-apple-text hover:text-apple-blue" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('opacity-100');">Цены</a>
+            <a href="#faq" class="text-3xl font-medium text-apple-text hover:text-apple-blue" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('opacity-100');">FAQ</a>
+            <a href="#map" class="text-3xl font-medium text-apple-text hover:text-apple-blue" onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('mobile-menu').classList.remove('opacity-100');">Контакты</a>
+            <a href="https://wa.me/77073335550" target="_blank" class="mt-10 bg-apple-blue hover:bg-opacity-90 text-black px-8 py-3 rounded-full text-xl font-semibold transition duration-300 shadow-xl">
+                Записаться
+            </a>
+        </div>
+    </header>
+
+    <main class="relative overflow-hidden">
+        <section id="hero" class="relative pt-12 lg:pt-24 pb-16 lg:pb-32 min-h-screen flex items-center">
+            <div class="container mx-auto max-w-7xl px-4 lg:px-8 z-10">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-5xl lg:text-7xl font-extrabold tracking-tighter leading-tight text-apple-text animate-fade-in-up" style="animation-delay: 0.1s;">
+                        👋 Больше никаких иероглифов!
+                    </h1>
+                    <p class="mt-6 text-xl lg:text-2xl text-apple-text/80 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                        Профессиональная русификация мультимедиа для Geely, Toyota, Changan, Exeed и других. Мы устанавливаем Яндекс.Навигатор, YouTube и онлайн-ТВ с полным сохранением дилерской гарантии.
+                    </p>
+                    
+                    <div class="mt-10 max-w-md mx-auto animate-fade-in-up" style="animation-delay: 0.3s;">
+                        <form id="hero-contact-form" class="space-y-4 p-6 glass-card rounded-3xl border border-apple-border/50">
+                            <h3 class="text-xl font-semibold text-center text-apple-text mb-2">Оставьте заявку на бесплатную консультацию</h3>
+                            
+                            <input type="text" id="name" name="client_name" placeholder="Ваше имя" required 
+                                class="w-full p-4 rounded-xl bg-apple-card border border-apple-border focus:border-apple-blue focus:ring-0 text-apple-text placeholder-apple-text/50 transition duration-200 text-lg">
+                            
+                            <input type="tel" id="phone" name="client_phone" placeholder="+7 (XXX) XXX XX XX" required 
+                                class="w-full p-4 rounded-xl bg-apple-card border border-apple-border focus:border-apple-blue focus:ring-0 text-apple-text placeholder-apple-text/50 transition duration-200 text-lg">
+                            
+                            <button type="submit" 
+                                    class="w-full bg-apple-blue hover:bg-opacity-90 text-black px-8 py-3 rounded-full text-lg font-bold transition duration-300 shadow-xl">
+                                Отправить заявку
+                            </button>
+                        </form>
+                        
+                        <p class="text-center text-apple-text/70 mt-4 text-sm">
+                            Или свяжитесь с нами напрямую:
+                            <a href="https://wa.me/77073335550" target="_blank" class="text-apple-blue hover:text-white transition duration-200 font-medium ml-1">
+                                WhatsApp
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="absolute inset-0 z-0 opacity-40">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                <div class="w-96 h-96 bg-apple-blue/10 rounded-full blur-[100px] absolute top-20 left-1/4 animate-float-slow"></div>
+                <div class="w-64 h-64 bg-apple-blue/10 rounded-full blur-[100px] absolute bottom-10 right-1/4 animate-float-slow" style="animation-delay: 1s;"></div>
+            </div>
+        </section>
+
+        <section id="features" class="py-20 lg:py-32">
+            <div class="container mx-auto max-w-7xl px-4 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 tracking-tight">Что вы получаете?</h2>
+                
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="glass-card p-4 sm:p-8 rounded-3xl text-center border border-apple-border/50 hover:border-apple-blue transition duration-300 animate-fade-in-up" style="animation-delay: 0.4s;">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-apple-blue mb-2 sm:mb-4">language</span>
+                        <h3 class="text-base sm:text-xl font-semibold mb-1 sm:mb-2">Безупречный Русский Язык</h3>
+                        <p class="text-apple-text/70 text-xs sm:text-sm">Наслаждайтесь системой, как будто она была русской с завода. Все меню, бортовой компьютер и настройки говорят на чистом и грамотном русском, без машинных ошибок.</p>
+                    </div>
+
+                    <div class="glass-card p-4 sm:p-8 rounded-3xl text-center border border-apple-border/50 hover:border-apple-blue transition duration-300 animate-fade-in-up" style="animation-delay: 0.5s;">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-apple-blue mb-2 sm:mb-4">apps</span>
+                        <h3 class="text-base sm:text-xl font-semibold mb-1 sm:mb-2">Яндекс и YouTube без проводов</h3>
+                        <p class="text-apple-text/70 text-xs sm:text-sm">Ваши любимые приложения управляются прямо с руля и адаптированы под штатный сенсорный экран. Никаких дополнительных приставок!</p>
+                    </div>
+
+                    <div class="glass-card p-4 sm:p-8 rounded-3xl text-center border border-apple-border/50 hover:border-apple-blue transition duration-300 animate-fade-in-up" style="animation-delay: 0.6s;">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-apple-blue mb-2 sm:mb-4">verified</span>
+                        <h3 class="text-base sm:text-xl font-semibold mb-1 sm:mb-2">🛡️ Гарантия Дилера Сохраняется</h3>
+                        <p class="text-apple-text/70 text-xs sm:text-sm">Мы используем безопасные, проверенные методики, которые работают только с мультимедиа-системой, не затрагивая двигатель и основные электронные системы.</p>
+                    </div>
+
+                    <div class="glass-card p-4 sm:p-8 rounded-3xl text-center border border-apple-border/50 hover:border-apple-blue transition duration-300 animate-fade-in-up" style="animation-delay: 0.7s;">
+                        <span class="material-symbols-outlined text-4xl sm:text-5xl text-apple-blue mb-2 sm:mb-4">support</span>
+                        <h3 class="text-base sm:text-xl font-semibold mb-1 sm:mb-2">Пожизненная Техническая Поддержка</h3>
+                        <p class="text-apple-text/70 text-xs sm:text-sm">Полное сопровождение и помощь с обновлениями и новыми функциями на весь срок службы вашего автомобиля. Мы всегда на связи!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="demo" class="py-20 lg:py-32 bg-apple-card/50">
+            <div class="container mx-auto max-w-7xl px-4 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 tracking-tight">Как работает русификация? (Демо)</h2>
+                
+                <div class="device-frame mx-auto max-w-[1200px] animate-fade-in-up" style="animation-delay: 0.8s;">
+                    <div class="screen-bg"></div>
+
+                    <div class="interface-layer">
+                        
+                        <div class="sidebar">
+                            <i class="fas fa-location-arrow nav-icon"></i>
+                            <i class="fas fa-music nav-icon"></i>
+                            <div class="nav-icon active"><i class="fas fa-th-large"></i></div>
+                            
+                            <div class="volume-container" id="vol-slider">
+                                <div class="volume-level" id="vol-fill"></div>
+                                <span class="vol-text" id="vol-val">18</span>
+                                <i class="fas fa-volume-up vol-icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="status-bar">
+                            <span id="sb-time">--:--</span>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                            <i class="fas fa-reply" style="margin-left: 20px;"></i>
+                        </div>
+
+                        <div class="info-panel">
+                            <div class="clock-widget">
+                                <i class="far fa-clock clock-icon"></i>
+                                <div class="time-big" id="main-clock">--:--</div>
+                                <div class="date-text" id="date-display" data-ru="">--</div>
+                            </div>
+                            
+                            <div class="car-display">
+                                <img src="ttt.jpg" class="car-img" alt="Car">
+                            </div>
+                        </div>
+
+                        <div class="card music-card">
+                            <div class="card-header">
+                                <span class="r1-logo">R1</span> 
+                                <span class="lang-text" data-cn="RUSONE" data-ru="РУС№1">RUSONE</span>
+                            </div>
+                            <div class="music-content">
+                                <div class="toyota-logo-container">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" class="toyota-img" alt="Toyota Logo">
+                                </div>
+                                <div class="track-info">
+                                    <div class="track-title lang-text" data-cn="系统更新" data-ru="Русификация">系统更新</div>
+                                </div>
+                                
+                                <button class="rus-btn" onclick="translateSystem()">Русифицировать</button>
+                            </div>
+                        </div>
+
+                        <div class="card nav-card">
+                            <div class="card-header">
+                                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> 
+                                <span class="lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</span>
+                            </div>
+                            <div class="nav-content">
+                                <i class="fab fa-whatsapp whatsapp-icon-main"></i>
+                                <div class="bottom-label lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</div>
+                            </div>
+                        </div>
+
+                        <div class="card radio-card">
+                            <div class="card-header">
+                                <i class="fas fa-info-circle"></i> 
+                                <span class="lang-text" data-cn="信息" data-ru="Информация">信息</span>
+                            </div>
+                            <div class="radio-content">
+                                <div class="translation-text lang-text" 
+                                     data-cn="将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。" 
+                                     data-ru="Перевод меню, настроек, кнопок и всех текстовых элементов системы на чистый русский язык.">
+                                     将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。
+                                </div>
+                                
+                                <div class="vko-controls">
+                                    <div class="vko-tag lang-text" data-cn="东哈州" data-ru="ВКО">东哈州</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="hardware-bar">
+                        <div class="social-icons">
+                            <a href="ВАША_ССЫЛКА_WHATSAPP" target="_blank" class="icon-link whatsapp">
+                                <img src="ttt.jpg" class="icon-image" alt="WhatsApp">
+                            </a>
+
+                            <a href="ВАША_ССЫЛКА_INSTAGRAM" target="_blank" class="icon-link instagram">
+                                <img src="ttt.jpg" class="icon-image" alt="Instagram">
+                            </a>
+
+                            <a href="ВАША_ССЫЛКА_TELEGRAM" target="_blank" class="icon-link telegram">
+                                <img src="ttt.jpg" class="icon-image" alt="Telegram">
+                            </a>
+
+                            <a href="ВАША_ССЫЛКА_2GIS" target="_blank" class="icon-link 2gis">
+                                <img src="ttt.jpg" class="icon-image" alt="2GIS">
+                            </a>
+
+                            <a href="ВАША_ССЫЛКА_САЙТ" target="_blank" class="icon-link website">
+                                <img src="ttt.jpg" class="icon-image" alt="Website">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="cars" class="py-20 lg:py-32 overflow-hidden">
+            <div class="container mx-auto max-w-7xl px-4 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 tracking-tight">Поддерживаемые авто (С гарантией на работы)</h2>
+            </div>
+            
+            <div class="relative w-full overflow-hidden">
+                <div id="carousel-container" class="py-10 relative">
+                    <div id="carousel" class="flex transition-transform duration-500 ease-in-out snap-x snap-mandatory overflow-x-scroll">
+                        </div>
+                </div>
+                
+                <button id="prev-btn" class="absolute top-1/2 left-0 lg:left-4 transform -translate-y-1/2 p-4 glass-card rounded-full text-apple-text z-30 hover:bg-apple-card/80 transition duration-300 hidden md:block">
+                    <span class="material-symbols-outlined text-3xl">arrow_back_ios</span>
+                </button>
+                <button id="next-btn" class="absolute top-1/2 right-0 lg:right-4 transform -translate-y-1/2 p-4 glass-card rounded-full text-apple-text z-30 hover:bg-apple-card/80 transition duration-300 hidden md:block">
+                    <span class="material-symbols-outlined text-3xl">arrow_forward_ios</span>
+                </button>
+            </div>
+            
+            <div id="cars-pagination" class="flex justify-center mt-6 space-x-3">
+                </div>
+        </section>
+        
+        <section id="pricing" class="py-20 lg:py-32">
+            <div class="container mx-auto max-w-7xl px-4 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 tracking-tight">Выберите свой пакет русификации</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl border border-apple-border/50 text-center transition duration-300 hover:transform hover:scale-[1.03] animate-fade-in-up" style="animation-delay: 1.1s;">
+                        <h3 class="text-3xl font-bold mb-4">Базовый</h3>
+                        <p class="text-apple-text/70 mb-6 text-sm sm:text-base">Только базовый, качественный перевод системы на русский язык.</p>
+                        <div class="text-5xl font-extrabold text-apple-text mb-8">
+                            <span class="text-3xl font-semibold">от</span> 45 000 <span class="text-2xl font-semibold">₸</span>
+                        </div>
+                        
+                        <ul class="text-left space-y-2 mb-8 text-base sm:text-lg">
+                            <li class="flex items-center space-x-3 text-apple-blue">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                <span>Полная русификация меню и кнопок</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-apple-text/50">
+                                <span class="material-symbols-outlined">close_circle</span>
+                                <span>Установка приложений (Яндекс, YouTube)</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-apple-text/50">
+                                <span class="material-symbols-outlined">close_circle</span>
+                                <span>Онлайн-ТВ</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-apple-blue">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                <span>Техническая поддержка (6 мес.)</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="https://wa.me/77073335550?text=Здравствуйте,%20хочу%20базовый%20пакет%20русификации" target="_blank" class="w-full inline-block bg-apple-card hover:bg-apple-card/80 text-apple-text border border-apple-border px-8 py-3 rounded-full text-lg font-semibold transition duration-300">
+                            Выбрать
+                        </a>
+                    </div>
+
+                    <div class="glass-card p-6 sm:p-8 rounded-3xl border-2 border-apple-blue shadow-2xl shadow-apple-blue/30 text-center transition duration-300 animate-fade-in-up" style="animation-delay: 1.2s;">
+                        <span class="inline-block bg-apple-blue text-black text-xs font-bold px-4 py-1 rounded-full mb-3 uppercase tracking-wider">🔥 Рекомендуем</span>
+                        <h3 class="text-3xl font-bold mb-4">Полный пакет "Под ключ"</h3>
+                        <p class="text-apple-text/70 mb-6 text-sm sm:text-base">Максимальная комплектация: русский язык, все приложения и полная гарантия на работы.</p>
+                        <div class="text-5xl font-extrabold text-apple-blue mb-8">
+                            <span class="text-3xl font-semibold">от</span> 75 000 <span class="text-2xl font-semibold">₸</span>
+                        </div>
+                        
+                        <ul class="text-left space-y-2 mb-8 text-base sm:text-lg">
+                            <li class="flex items-center space-x-3 text-apple-blue">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                <span>Полная русификация меню и кнопок</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-apple-blue">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                <span>Установка приложений (Яндекс, YouTube)</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-apple-blue">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                <span>Онлайн-ТВ</span>
+                            </li>
+                            <li class="flex items-center space-x-3 text-apple-blue">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                <span>Техническая поддержка (12 мес.)</span>
+                            </li>
+                        </ul>
+                        
+                        <a href="https://wa.me/77073335550?text=Здравствуйте,%20хочу%20полный%20пакет%20русификации" target="_blank" class="w-full inline-block bg-apple-blue hover:bg-opacity-90 text-black px-8 py-3 rounded-full text-lg font-bold transition duration-300">
+                            Записаться
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-20 lg:py-32">
+            <div class="container mx-auto max-w-4xl px-4 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 tracking-tight">Часто задаваемые вопросы (FAQ)</h2>
+                
+                <div class="space-y-4">
+                    <div class="glass-card p-6 rounded-2xl border border-apple-border/50">
+                        <button class="w-full text-left flex justify-between items-center text-lg font-semibold text-apple-text" onclick="toggleAccordion(this)" aria-expanded="false" aria-controls="faq-content-1">
+                            <span>Сколько времени занимает русификация?</span>
+                            <span class="material-symbols-outlined accordion-icon transition-transform duration-300">expand_more</span>
+                        </button>
+                        <div id="faq-content-1" class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out opacity-0 pt-0" aria-hidden="true">
+                            <p class="mt-4 pt-4 border-t border-apple-border/50 text-apple-text/80 text-base">
+                                Процесс занимает от 1 до 3 часов, в зависимости от модели автомобиля и текущей версии прошивки. Мы проводим полную диагностику системы перед началом работ.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card p-6 rounded-2xl border border-apple-border/50">
+                        <button class="w-full text-left flex justify-between items-center text-lg font-semibold text-apple-text" onclick="toggleAccordion(this)" aria-expanded="false" aria-controls="faq-content-2">
+                            <span>Что насчет гарантии дилера?</span>
+                            <span class="material-symbols-outlined accordion-icon transition-transform duration-300">expand_more</span>
+                        </button>
+                        <div id="faq-content-2" class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out opacity-0 pt-0" aria-hidden="true">
+                            <p class="mt-4 pt-4 border-t border-apple-border/50 text-apple-text/80 text-base">
+                                Наши методы не затрагивают критически важные системы автомобиля. Руководствуясь законом, вмешательство в мультимедиа не является основанием для снятия автомобиля с гарантии по двигателю или ходовой части. Мы гарантируем безопасность процесса.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-2xl border border-apple-border/50">
+                        <button class="w-full text-left flex justify-between items-center text-lg font-semibold text-apple-text" onclick="toggleAccordion(this)" aria-expanded="false" aria-controls="faq-content-3">
+                            <span>Какие приложения можно установить?</span>
+                            <span class="material-symbols-outlined accordion-icon transition-transform duration-300">expand_more</span>
+                        </button>
+                        <div id="faq-content-3" class="accordion-content overflow-hidden max-h-0 transition-all duration-500 ease-in-out opacity-0 pt-0" aria-hidden="true">
+                            <p class="mt-4 pt-4 border-t border-apple-border/50 text-apple-text/80 text-base">
+                                Основные: Яндекс.Навигатор и YouTube. Также доступны: Онлайн-ТВ, Антирадар, КиноПоиск и другие приложения, которые мы адаптируем под штатный экран.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="map" class="py-20 lg:py-32 bg-map-overlay">
+            <div class="container mx-auto max-w-7xl px-4 lg:px-8">
+                <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16 tracking-tight">Мы работаем в ВКО</h2>
+                
+                <div class="flex flex-col lg:flex-row glass p-6 lg:p-12 rounded-3xl border border-apple-border/50 shadow-2xl">
+                    
+                    <div class="lg:w-1/2 mb-8 lg:mb-0">
+                        <h3 class="text-3xl font-bold mb-6 text-apple-text">Наши контакты и локации</h3>
+                        
+                        <div class="space-y-4 mb-8">
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-apple-blue">call</span>
+                                <a href="tel:+77073335550" class="text-xl hover:text-apple-blue transition">+7 707 333 55 50</a>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <span class="material-symbols-outlined text-apple-blue">mail</span>
+                                <a href="mailto:rusone.kz@gmail.com" class="text-xl hover:text-apple-blue transition">rusone.kz@gmail.com</a>
+                            </div>
+                            <div class="flex items-start space-x-3 pt-4">
+                                <span class="material-symbols-outlined text-apple-blue flex-shrink-0">location_on</span>
+                                <p class="text-xl">Города: Усть-Каменогорск (Оскемен), Семей.</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button id="btn-oskemen" class="city-btn px-6 py-2 rounded-full text-lg font-semibold transition duration-300 bg-apple-card hover:bg-apple-blue/20 border border-apple-border/50 hover:border-apple-blue" data-city="oskemen">
+                                Усть-Каменогорск (Оскемен)
+                            </button>
+                            <button id="btn-semey" class="city-btn px-6 py-2 rounded-full text-lg font-semibold transition duration-300 bg-apple-card hover:bg-apple-blue/20 border border-apple-border/50 hover:border-apple-blue" data-city="semey">
+                                Семей
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:w-1/2">
+                        <svg id="map-svg" viewBox="0 0 500 350" class="w-full h-auto">
+                            <g id="map-g-group">
+                                <path id="map-oskemen" data-city="oskemen" fill="#1c1c1e" stroke="#333333" stroke-width="1" d="M150,50 L200,30 L250,60 L230,100 L180,120 Z" class="transition-all duration-300 hover:fill-map-active/50 cursor-pointer" />
+                                <circle id="point-oskemen" cx="215" cy="80" r="5" fill="#2997ff" class="pointer-events-none" />
+                                
+                                <path id="map-semey" data-city="semey" fill="#1c1c1e" stroke="#333333" stroke-width="1" d="M250,60 L350,20 L450,80 L380,140 Z" class="transition-all duration-300 hover:fill-map-active/50 cursor-pointer" />
+                                <circle id="point-semey" cx="300" cy="100" r="5" fill="#2997ff" class="pointer-events-none" />
+
+                                <path fill="#1c1c1e" stroke="#333333" stroke-width="1" d="M50,150 L150,120 L180,120 L150,250 L80,220 Z" />
+                                <path fill="#1c1c1e" stroke="#333333" stroke-width="1" d="M380,140 L450,180 L400,250 L300,200 Z" />
+
+                                <text x="10" y="340" fill="#f2f2f7" font-size="14">Нажмите на город, чтобы подсветить область</text>
+                            </g>
+                        </svg>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 lg:py-24">
+            <div class="container mx-auto max-w-4xl px-4 lg:px-8 text-center">
+                <h2 class="text-4xl lg:text-5xl font-bold tracking-tight mb-6">
+                    📞 Хватит ждать! Начните говорить с вашей машиной на <span class="text-apple-blue">одном языке</span>.
+                </h2>
+                <p class="text-xl text-apple-text/80 mb-10">
+                    Запишитесь на русификацию прямо сейчас и получите Полный пакет технической поддержки (1 год) в подарок.
+                </p>
+                <a href="https://wa.me/77073335550" target="_blank" class="inline-block bg-apple-blue hover:bg-opacity-90 text-black px-10 py-4 rounded-full text-xl font-bold transition duration-300 shadow-2xl hover:shadow-apple-blue/50 animate-pulse-slow">
+                    Записаться и получить подарок!
+                </a>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer id="footer" class="py-12 lg:py-16 mt-16 bg-apple-card border-t border-apple-border/50">
+        <div class="container mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+                
+                <div class="col-span-2 md:col-span-1">
+                    <a href="#hero" class="text-2xl font-bold tracking-tight text-apple-text">
+                        <span class="text-apple-blue">RUS</span>ONE
+                    </a>
+                    <p class="text-sm text-apple-text/70 mt-2">
+                        Профессиональная русификация авто.
+                    </p>
+                    <p class="text-xs text-apple-text/50 mt-6">
+                        &copy; 2024–<span id="current-year">2025</span> RUSONE. <br>Все права защищены.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-apple-text">Навигация</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#features" class="text-apple-text/70 hover:text-apple-blue transition duration-200">Возможности</a></li>
+                        <li><a href="#demo" class="text-apple-text/70 hover:text-apple-blue transition duration-200">Демо</a></li>
+                        <li><a href="#cars" class="text-apple-text/70 hover:text-apple-blue transition duration-200">Авто</a></li>
+                        <li><a href="#pricing" class="text-apple-text/70 hover:text-apple-blue transition duration-200">Цены</a></li>
+                        <li><a href="#faq" class="text-apple-text/70 hover:text-apple-blue transition duration-200">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-apple-text">Контакты</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li>
+                            <a href="https://wa.me/77073335550" target="_blank" class="text-apple-text/70 hover:text-apple-blue transition duration-200 flex items-center space-x-2">
+                                <span class="material-symbols-outlined text-base">call</span>
+                                <span>+7 707 333 55 50</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:rusone.kz@gmail.com" class="text-apple-text/70 hover:text-apple-blue transition duration-200 flex items-center space-x-2">
+                                <span class="material-symbols-outlined text-base">mail</span>
+                                <span>rusone.kz@gmail.com</span>
+                            </a>
+                        </li>
+                        <li class="pt-2">
+                            <a href="#map" class="text-apple-text/70 hover:text-apple-blue transition duration-200 flex items-center space-x-2">
+                                <span class="material-symbols-outlined text-base">location_on</span>
+                                <span>Города ВКО</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold mb-4 text-apple-text">Информация</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-apple-text/70 hover:text-apple-blue transition duration-200">Политика конфиденциальности</a></li>
+                        <li><a href="#" class="text-apple-text/70 hover:text-apple-blue transition duration-200">Условия обслуживания</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
