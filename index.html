@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>RUSONE | Русификация Авто | ВКО</title>
-    <meta name="description" content="Русификация Geely, Toyota, Changan в ВКО. Усть-Каменогорск, Семей. Гарантия, приложения, поддержка.">
+    <meta name="description" content="Русификация Geely, Toyota, Changan, Exeed в ВКО. Усть-Каменогорск, Семей. Гарантия, приложения, поддержка.">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Fonts -->
+    <!-- Fonts (Only Text Fonts left) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    
+    <!-- УБРАНЫ ТЯЖЕЛЫЕ БИБЛИОТЕКИ ИКОНОК для скорости -->
 
     <script>
         tailwind.config = {
@@ -114,11 +114,12 @@
         .d-interface { position: relative; z-index: 1; flex: 1; display: grid; grid-template-columns: 21px 1.5fr 2fr 1fr 1fr; grid-template-rows: 12px 1fr; gap: 0 5px; padding: 3px 6px 3px 0; }
         
         .d-sidebar { grid-row: 1 / -1; background: rgba(0,0,0,0.65); border-right: 1px solid rgba(255,255,255,0.05); display: flex; flex-direction: column; align-items: center; padding-top: 3px; }
-        .d-nav-icon { font-size: 8px; margin-bottom: 15px; opacity: 0.6; color: #fff; }
-        .d-nav-icon.active { opacity: 1; text-shadow: 0 0 5px #2196f3; }
+        .d-nav-icon { width: 10px; height: 10px; margin-bottom: 15px; opacity: 0.6; fill: #fff; }
+        .d-nav-icon.active { opacity: 1; filter: drop-shadow(0 0 2px #2196f3); }
         .d-volume { display: none; }
         
         .d-status-bar { grid-column: 2 / -1; display: flex; justify-content: flex-end; align-items: center; padding-right: 3px; font-size: 7px; color: #fff; }
+        .d-status-icon { width: 8px; height: 8px; fill: white; margin-left: 4px; }
         
         .d-info-panel { grid-column: 2; grid-row: 2; display: flex; flex-direction: column; justify-content: space-between; padding-bottom: 6px; }
         .d-time { font-size: 26px; font-weight: 100; line-height: 1; letter-spacing: -1px; color: #fff; }
@@ -127,8 +128,9 @@
 
         .d-card { background: var(--d-card-base); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; margin-bottom: 6px; position: relative; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
         .d-card-header { padding: 5px; font-size: 8px; font-weight: 500; display: flex; align-items: center; color: #fff; }
-        .d-card-header i { margin-right: 3px; opacity: 0.7; }
+        .d-card-icon { width: 8px; height: 8px; margin-right: 3px; opacity: 0.7; fill: currentColor; }
         .d-card-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 2px 4px 6px; text-align: center; }
+        .d-mini-icon { width: 8px; height: 8px; margin-top: 2px; fill: currentColor; }
         
         .d-text-main { font-size: 5px; line-height: 1.3; color: #fff; }
         .d-tag { font-size: 6px; font-weight: 700; padding: 1px 4px; background: rgba(255,255,255,0.1); border-radius: 2px; color: #fff; margin-bottom: 3px; }
@@ -136,7 +138,14 @@
         .d-btn { padding: 3px 8px; border-radius: 8px; font-size: 5.5px; background: var(--d-color-red); color: #fff; border: none; cursor: pointer; text-transform: uppercase; font-weight: bold; }
         
         .d-hw-bar { height: 20px; background: #000; border-top: 1px solid #222; margin-top: auto; display: flex; justify-content: center; align-items: center; gap: 7px; padding-top: 2px; }
-        .d-hw-icon { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 4px; text-decoration: none; }
+        .d-hw-icon { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; }
+        .d-hw-svg { width: 5px; height: 5px; fill: white; }
+
+        /* SVG Utilities */
+        .icon-sm { width: 16px; height: 16px; fill: currentColor; }
+        .icon-md { width: 24px; height: 24px; fill: currentColor; }
+        .icon-lg { width: 32px; height: 32px; fill: currentColor; }
+        .icon-xl { width: 48px; height: 48px; fill: currentColor; }
 
     </style>
 </head>
@@ -146,8 +155,11 @@
     <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300" id="header">
         <div class="glass border-b border-white/5">
             <div class="container mx-auto px-4 h-16 flex items-center justify-between">
-                <a href="#" class="text-2xl font-bold tracking-tight text-white flex items-center gap-1">
-                    <span class="text-brand-blue">RUS</span>ONE
+                <a href="#" class="flex items-center gap-2">
+                    <!-- LOGO INSERTED HERE -->
+                    <div class="text-2xl font-bold tracking-tight text-white flex items-center">
+                        <span class="text-white">RUSONE</span>
+                    </div>
                 </a>
 
                 <nav class="hidden md:flex space-x-6 text-sm font-medium text-brand-textMuted">
@@ -214,7 +226,7 @@
         </div>
     </section>
 
-    <!-- FEATURES -->
+    <!-- FEATURES (Icons Replaced with SVG) -->
     <section id="features" class="py-10 bg-[#08080a]">
         <div class="container mx-auto px-4">
             <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">Почему выбирают нас</h2>
@@ -222,7 +234,8 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
                 <div class="glass p-5 rounded-2xl border border-white/5 hover:border-brand-blue/30 transition-all">
                     <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 text-brand-blue">
-                        <span class="material-symbols-outlined text-2xl">translate</span>
+                        <!-- Icon: Translate -->
+                        <svg class="icon-md" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03A17.52 17.52 0 0014.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
                     </div>
                     <h3 class="text-sm md:text-base font-bold mb-2">Родной Русский</h3>
                     <p class="text-xs text-brand-textMuted leading-relaxed">
@@ -231,7 +244,8 @@
                 </div>
                 <div class="glass p-5 rounded-2xl border border-white/5 hover:border-brand-blue/30 transition-all">
                     <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 text-brand-blue">
-                        <span class="material-symbols-outlined text-2xl">apps</span>
+                        <!-- Icon: Apps -->
+                        <svg class="icon-md" viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
                     </div>
                     <h3 class="text-sm md:text-base font-bold mb-2">Экосистема</h3>
                     <p class="text-xs text-brand-textMuted leading-relaxed">
@@ -240,7 +254,8 @@
                 </div>
                 <div class="glass p-5 rounded-2xl border border-white/5 hover:border-brand-blue/30 transition-all">
                     <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 text-brand-blue">
-                        <span class="material-symbols-outlined text-2xl">verified_user</span>
+                        <!-- Icon: Verified/Shield -->
+                        <svg class="icon-md" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
                     </div>
                     <h3 class="text-sm md:text-base font-bold mb-2">Гарантия</h3>
                     <p class="text-xs text-brand-textMuted leading-relaxed">
@@ -249,7 +264,8 @@
                 </div>
                 <div class="glass p-5 rounded-2xl border border-white/5 hover:border-brand-blue/30 transition-all">
                     <div class="w-10 h-10 rounded-lg bg-brand-blue/10 flex items-center justify-center mb-3 text-brand-blue">
-                        <span class="material-symbols-outlined text-2xl">headset_mic</span>
+                        <!-- Icon: Support/Headset -->
+                        <svg class="icon-md" viewBox="0 0 24 24"><path d="M21 12.22C21 6.73 16.96 3 12 3 6.96 3 3 6.83 3 12.22 3 14.82 3.26 16 3.26 16h3.24v-7H3.53C3.99 6.28 7.37 4 12 4c5.22 0 9 3.69 9 8.22V16h-3.24v-7h2.97c.01 0 .27 1.18.27 3.22zM2.5 17h4v2h-4v-2zm15 0h4v2h-4v-2zM4.5 11h-2v4h2v-4zm17 0h-2v4h2v-4z"/></svg>
                     </div>
                     <h3 class="text-sm md:text-base font-bold mb-2">Поддержка</h3>
                     <p class="text-xs text-brand-textMuted leading-relaxed">
@@ -274,11 +290,12 @@
                     
                     <ul class="space-y-3 mb-6 flex-1 text-sm text-gray-300">
                         <li class="flex items-center gap-2">
-                            <i class="fas fa-check text-brand-blue text-xs"></i>
+                            <!-- Icon: Check -->
+                            <svg class="w-4 h-4 text-brand-blue fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             <span>Русификация мультимедийной панели</span>
                         </li>
                     </ul>
-                    <a href="https://wa.me/77073473349?text=Здравствуйте,%20интересует%20пакет%20Базовый" target="_blank" class="w-full block text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all font-semibold text-sm">
+                    <a href="https://wa.me/77077121104?text=Здравствуйте,%20интересует%20пакет%20Базовый" target="_blank" class="w-full block text-center py-3 rounded-xl border border-white/20 hover:bg-white hover:text-black transition-all font-semibold text-sm">
                         Выбрать
                     </a>
                 </div>
@@ -292,23 +309,23 @@
                     
                     <ul class="space-y-3 mb-6 flex-1 text-sm text-gray-300">
                         <li class="flex items-center gap-2">
-                            <i class="fas fa-check text-brand-blue text-xs"></i>
+                            <svg class="w-4 h-4 text-brand-blue fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             <span>Русификация мультимедийной панель</span>
                         </li>
                         <li class="flex items-center gap-2">
-                            <i class="fas fa-check text-brand-blue text-xs"></i>
+                            <svg class="w-4 h-4 text-brand-blue fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             <span>Русификация приборной панель</span>
                         </li>
                         <li class="flex items-center gap-2">
-                            <i class="fas fa-check text-brand-blue text-xs"></i>
+                            <svg class="w-4 h-4 text-brand-blue fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             <span>Установка приложений</span>
                         </li>
                         <li class="flex items-center gap-2">
-                            <i class="fas fa-check text-brand-blue text-xs"></i>
+                            <svg class="w-4 h-4 text-brand-blue fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
                             <span>Гарантия</span>
                         </li>
                     </ul>
-                    <a href="https://wa.me/77073473349?text=Здравствуйте,%20интересует%20пакет%20Всё%20Включено" target="_blank" class="w-full block text-center py-3 rounded-xl bg-brand-blue text-white hover:bg-brand-blueHover transition-all font-bold text-sm shadow-md">
+                    <a href="https://wa.me/77077121104?text=Здравствуйте,%20интересует%20пакет%20Всё%20Включено" target="_blank" class="w-full block text-center py-3 rounded-xl bg-brand-blue text-white hover:bg-brand-blueHover transition-all font-bold text-sm shadow-md">
                         Выбрать
                     </a>
                 </div>
@@ -326,8 +343,6 @@
         <div class="relative w-full">
             <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4 hide-scroll scroll-smooth">
                 
-                <!-- Generated Cards for new list -->
-                <!-- Atlas Cool -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1632245889029-e416c140c36f?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Geely">
@@ -339,7 +354,6 @@
                     </div>
                 </div>
 
-                <!-- Bouye L -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Geely">
@@ -351,7 +365,6 @@
                     </div>
                 </div>
 
-                <!-- Toyota Camry XV80 -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1621007947382-bb3c3967e315?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Toyota">
@@ -363,7 +376,6 @@
                     </div>
                 </div>
 
-                <!-- RAV4 2025 -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1609520505218-7421da356d80?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Toyota">
@@ -375,7 +387,6 @@
                     </div>
                 </div>
 
-                <!-- Highlander 2025 -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600089979248-e913eb24fb9a?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Toyota">
@@ -387,7 +398,6 @@
                     </div>
                 </div>
 
-                <!-- Sienna 2025 -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1611311642626-9d75479246c7?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Toyota">
@@ -399,7 +409,6 @@
                     </div>
                 </div>
 
-                <!-- Venza 2025 -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1619362280286-f1f8fd50320e?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Toyota">
@@ -411,7 +420,6 @@
                     </div>
                 </div>
 
-                <!-- Crown Kluger -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Toyota">
@@ -423,7 +431,6 @@
                     </div>
                 </div>
 
-                <!-- Uni-K -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1669826316235-866412f92842?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Changan">
@@ -435,7 +442,6 @@
                     </div>
                 </div>
 
-                <!-- Changan X5/CS55 -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1664134734222-17727e615e27?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Changan">
@@ -447,7 +453,6 @@
                     </div>
                 </div>
 
-                <!-- Coolray -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1678357337043-4b7b7b6b02b3?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Geely">
@@ -459,7 +464,6 @@
                     </div>
                 </div>
 
-                <!-- Monjaro -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1635783863773-82c5e5330334?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="Geely">
@@ -471,7 +475,6 @@
                     </div>
                 </div>
 
-                <!-- SsangYong -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-card rounded-xl overflow-hidden border border-white/5 relative">
                     <div class="h-[140px] bg-white/5 flex items-center justify-center overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" alt="SsangYong">
@@ -483,11 +486,11 @@
                     </div>
                 </div>
 
-                <!-- Custom Auto -->
                 <div class="snap-center shrink-0 w-[240px] bg-brand-blue/10 rounded-xl overflow-hidden border border-brand-blue/30 flex flex-col justify-center items-center text-center p-6 relative cursor-pointer hover:bg-brand-blue/20 transition-colors group">
                     <a href="#signup" class="absolute inset-0 z-10"></a>
                     <div class="w-16 h-16 rounded-full bg-brand-blue/20 flex items-center justify-center text-brand-blue mb-4 group-hover:scale-110 transition-transform">
-                        <i class="fas fa-car text-2xl"></i>
+                        <!-- Icon: Car -->
+                        <svg class="icon-md" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Ваше авто?</h3>
                     <p class="text-xs text-brand-textMuted">Оставьте заявку для уточнения</p>
@@ -501,7 +504,6 @@
     <section id="demo" class="py-10 overflow-hidden relative border-t border-white/5">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Как это выглядит</h2>
-            <!-- ИЗМЕНЕНИЕ 1: Новый текст для кнопки "Русифицировать" -->
             <p class="text-sm text-brand-textMuted mb-6 max-w-md mx-auto">Нажмите кнопку <span class="text-white font-bold">"Русифицировать"</span> на экране ниже, чтобы увидеть результат русификации.</p>
             
             <div class="demo-wrapper">
@@ -510,15 +512,15 @@
                         <div class="d-screen-bg"></div>
                         <div class="d-interface">
                             <div class="d-sidebar">
-                                <div class="d-nav-icon active"><i class="fas fa-th-large"></i></div>
-                                <i class="fas fa-location-arrow d-nav-icon"></i>
-                                <i class="fas fa-music d-nav-icon"></i>
+                                <svg class="d-nav-icon active" viewBox="0 0 24 24"><path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"/></svg>
+                                <svg class="d-nav-icon" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                                <svg class="d-nav-icon" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
                                 <div class="d-volume" id="vol-slider"></div>
                             </div>
                             <div class="d-status-bar">
                                 <span id="sb-time" class="mr-1">--:--</span>
-                                <i class="fas fa-wifi mr-1"></i>
-                                <i class="fas fa-battery-full"></i>
+                                <svg class="d-status-icon" viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 6.94 8.86 6.94 5 13z"/></svg>
+                                <svg class="d-status-icon" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
                             </div>
                             <div class="d-info-panel">
                                 <div>
@@ -529,41 +531,27 @@
                             </div>
                             <div class="d-card" style="grid-column: 3; grid-row: 2;">
                                 <div class="d-card-header">
-                                    <i class="fas fa-car"></i> 
+                                    <svg class="d-card-icon" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99z"/></svg>
                                     <span class="lang-text" data-ru="Статус">演示</span>
                                 </div>
                                 <div class="d-card-content">
                                     <div class="d-tag lang-text" data-ru="ДЕМО">演示模式</div>
                                     <div class="d-text-main lang-text" data-ru="Ваш авто, Ваш стиль">你的车，你的风格</div>
-                                    <!-- ИЗМЕНЕНИЕ 1: Кнопка "Русифицировать" -->
                                     <button class="d-btn mt-1" id="translation-btn" onclick="translateSystem()">Русифицировать</button>
                                 </div>
                             </div>
                             <div class="d-card" style="grid-column: 4; grid-row: 2;">
                                 <div class="d-card-header">
-                                    <i class="fas fa-info-circle"></i> 
+                                    <svg class="d-card-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
                                     <span class="lang-text" data-ru="Инфо">信息</span>
                                 </div>
                                 <div class="d-card-content">
                                     <div class="d-text-main lang-text" data-ru="Полный перевод">完整翻译系统</div>
-                                    <i class="fab fa-whatsapp text-green-400 text-[8px] mt-1"></i>
-                                </div>
-                            </div>
-                            <div class="d-card" style="grid-column: 5; grid-row: 2;">
-                                <div class="d-card-header">
-                                    <i class="fas fa-phone"></i> 
-                                    <span class="lang-text" data-ru="Связь">电话</span>
-                                </div>
-                                <div class="d-card-content">
-                                    <div class="d-text-main lang-text" data-ru="Звоните нам">+7 (707)</div>
-                                    <i class="fas fa-phone text-blue-400 text-[8px] mt-1"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-hw-bar">
-                            <a href="#" class="d-hw-icon"><i class="fab fa-whatsapp"></i></a>
-                            <a href="#" class="d-hw-icon"><i class="fab fa-telegram-plane"></i></a>
-                            <a href="#" class="d-hw-icon"><i class="fas fa-map-marker-alt"></i></a>
+                                    <svg class="d-mini-icon text-green-400" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+                            <!-- Telegram -->
+                            <a href="#" class="d-hw-icon"><svg class="d-hw-svg" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.75-.33 1.42.2 1.17 1.39l-2.75 12.98c-.19.9-.74 1.13-1.5.71l-4.15-3.07-2 1.93c-.23.23-.42.42-.85.42l.3-4.23z"/></svg></a>
+                            <!-- Maps -->
+                            <a href="#" class="d-hw-icon"><svg class="d-hw-svg" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></a>
                         </div>
                     </div>
                 </div>
@@ -581,16 +569,16 @@
                 <div class="glass rounded-xl overflow-hidden">
                     <button class="w-full p-4 text-left font-semibold flex justify-between items-center faq-btn text-sm">
                         <span>Сколько времени занимает работа?</span>
-                        <i class="fas fa-chevron-down text-brand-blue text-xs transition-transform"></i>
+                        <svg class="icon-sm text-brand-blue transition-transform" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </button>
                     <div class="max-h-0 overflow-hidden transition-all duration-300 px-4 text-brand-textMuted text-xs faq-content">
-                        <p class="pb-4">В среднем от 1.5 до 3 часов. Всё делаем при вас.</p>
+                        <p class="pb-4">В среднем от 30 минут до 2 часов. Всё делаем при вас.</p>
                     </div>
                 </div>
                 <div class="glass rounded-xl overflow-hidden">
                     <button class="w-full p-4 text-left font-semibold flex justify-between items-center faq-btn text-sm">
                         <span>Как вы работаете (выезд)?</span>
-                        <i class="fas fa-chevron-down text-brand-blue text-xs transition-transform"></i>
+                        <svg class="icon-sm text-brand-blue transition-transform" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </button>
                     <div class="max-h-0 overflow-hidden transition-all duration-300 px-4 text-brand-textMuted text-xs faq-content">
                         <p class="pb-4">Мы работаем на выезд к клиенту (в пределах города) или договариваемся о встрече.</p>
@@ -599,7 +587,7 @@
                 <div class="glass rounded-xl overflow-hidden">
                     <button class="w-full p-4 text-left font-semibold flex justify-between items-center faq-btn text-sm">
                         <span>Слетит ли гарантия?</span>
-                        <i class="fas fa-chevron-down text-brand-blue text-xs transition-transform"></i>
+                        <svg class="icon-sm text-brand-blue transition-transform" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </button>
                     <div class="max-h-0 overflow-hidden transition-all duration-300 px-4 text-brand-textMuted text-xs faq-content">
                         <p class="pb-4">Нет, мы не вмешиваемся в основные блоки управления двигателем.</p>
@@ -608,7 +596,7 @@
                 <div class="glass rounded-xl overflow-hidden">
                     <button class="w-full p-4 text-left font-semibold flex justify-between items-center faq-btn text-sm">
                         <span>Нужно ли оставлять машину на ночь?</span>
-                        <i class="fas fa-chevron-down text-brand-blue text-xs transition-transform"></i>
+                        <svg class="icon-sm text-brand-blue transition-transform" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
                     </button>
                     <div class="max-h-0 overflow-hidden transition-all duration-300 px-4 text-brand-textMuted text-xs faq-content">
                         <p class="pb-4">Нет, процедура занимает всего пару часов.</p>
@@ -616,7 +604,7 @@
                 </div>
                 <a href="#signup" class="block glass rounded-xl p-4 text-left font-semibold text-sm hover:bg-white/5 transition-colors text-brand-blue flex justify-between items-center">
                     <span>Задать другой вопрос</span>
-                    <i class="fas fa-arrow-right"></i>
+                    <svg class="icon-sm" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
                 </a>
             </div>
         </div>
@@ -628,17 +616,22 @@
             <div class="glass-strong rounded-3xl p-6 md:p-8 border border-white/10 flex flex-col lg:flex-row items-center gap-10">
                 <div class="lg:w-1/2 text-center lg:text-left">
                     <h2 class="text-2xl font-bold mb-6">Свяжитесь с нами</h2>
-                    <a href="tel:+77789882649" class="text-3xl font-bold text-white block mb-6 hover:text-brand-blue transition-colors">
-                        +7 778 988 26 49
+                    <a href="tel:+77077121104" class="text-3xl font-bold text-white block mb-6 hover:text-brand-blue transition-colors">
+                        +7 707 712 11 04
                     </a>
                     <div class="flex items-center justify-center lg:justify-start gap-6 mb-8">
-                        <a href="https://wa.me/77789882649" class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"><i class="fab fa-telegram-plane"></i></a>
-                        <a href="#" class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-600 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/77077121104" class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.75-.33 1.42.2 1.17 1.39l-2.75 12.98c-.19.9-.74 1.13-1.5.71l-4.15-3.07-2 1.93c-.23.23-.42.42-.85.42l.3-4.23z"/></svg>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-600 flex items-center justify-center text-white text-xl hover:scale-110 transition-transform shadow-lg">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </a>
                     </div>
                     
                     <div>
-                        <!-- ИЗМЕНЕНИЕ 2: Обновленные заголовки и структура ссылок -->
                         <p class="text-sm font-bold text-white mb-3">Найти нас на картах:</p>
                         <div class="flex flex-wrap justify-center lg:justify-start gap-3 mb-6">
                             <a href="#" class="px-4 py-2 rounded-lg bg-[#222] border border-white/10 hover:border-brand-blue text-sm transition-colors flex items-center gap-2">
@@ -665,7 +658,7 @@
                 <!-- Interactive Map Borders -->
                 <div class="lg:w-1/2 w-full relative h-[300px] flex items-center justify-center bg-[#0a0a0c] rounded-2xl border border-white/5 p-4 overflow-hidden">
                     <svg viewBox="0 0 500 350" class="w-full h-full drop-shadow-2xl">
-                        <!-- Borders representation (ИЗМЕНЕНИЕ 3: удалены onclick) -->
+                        <!-- Borders representation -->
                         <path d="M220,150 L260,160 L250,200 L210,190 Z" class="region-shape region-blue"></path>
                         <path d="M80,130 L130,120 L140,160 L90,170 Z" class="region-shape region-red"></path>
                         <path d="M320,60 L360,50 L370,90 L330,100 Z" class="region-shape region-yellow"></path>
@@ -681,7 +674,6 @@
                         <text x="115" y="145" text-anchor="middle" fill="#E53935" font-size="10" pointer-events="none">Семей</text>
                         <text x="345" y="80" text-anchor="middle" fill="#FFD600" font-size="10" pointer-events="none">Риддер</text>
                         <text x="385" y="220" text-anchor="middle" fill="#00E676" font-size="10" pointer-events="none">Алтай</text>
-                        
                     </svg>
                 </div>
             </div>
@@ -691,12 +683,15 @@
     <!-- FOOTER (New Layout) -->
     <footer class="border-t border-white/10 bg-black py-4"> 
         <div class="container mx-auto px-4 flex justify-between items-start text-sm text-brand-textMuted">
-            <div class="text-2xl font-bold tracking-tight text-white flex items-center gap-1">
-                <span class="text-brand-blue">RUS</span>ONE
+            <div class="flex items-center gap-2">
+                <!-- LOGO INSERTED HERE -->
+                <img src="R1_logo.png" alt="RUSONE Logo" class="h-8 w-auto">
+                    <div class="text-1xl tracking-tight text-white flex items-center">
+                </div>
             </div>
             <div class="text-right flex flex-col gap-1">
                 <span>© 2025 Все права защищены</span>
-                <span class="opacity-60 text-xs">Разработка и дизайн: SunQai</span>
+                <span class="opacity-60 text-xs">Разработка и дизайн: OneSaturn</span>
             </div>
         </div>
     </footer>
@@ -706,13 +701,13 @@
         document.querySelectorAll('.faq-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const content = btn.nextElementSibling;
-                const icon = btn.querySelector('.fa-chevron-down');
+                const icon = btn.querySelector('.text-brand-blue');
                 if (content.style.maxHeight) {
                     content.style.maxHeight = null;
                     icon.style.transform = 'rotate(0deg)';
                 } else {
                     document.querySelectorAll('.faq-content').forEach(el => el.style.maxHeight = null);
-                    document.querySelectorAll('.fa-chevron-down').forEach(el => el.style.transform = 'rotate(0deg)');
+                    document.querySelectorAll('.text-brand-blue').forEach(el => el.style.transform = 'rotate(0deg)');
                     content.style.maxHeight = content.scrollHeight + "px";
                     icon.style.transform = 'rotate(180deg)';
                 }
@@ -726,7 +721,7 @@
             const phone = document.getElementById('phone').value;
             const car = document.getElementById('car').value;
             const message = `Здравствуйте! Меня зовут ${name}. Авто: ${car}. Телефон: ${phone}. Хочу записаться на русификацию.`;
-            const url = `https://wa.me/77073473349?text=${encodeURIComponent(message)}`;
+            const url = `https://wa.me/77077121104?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
         });
 
@@ -772,7 +767,6 @@
             });
             const btn = document.getElementById('translation-btn');
             if(btn) {
-                // ИЗМЕНЕНИЕ 1: Кнопка меняет текст на "ГОТОВО!" после русификации
                 btn.innerText = "ГОТОВО!"; 
                 btn.style.background = "#128C7E"; 
                 btn.style.boxShadow = "0 0 10px rgba(18, 140, 126, 0.5)"; 
