@@ -545,6 +545,273 @@
 
 
 
+<style>
+/* Контейнер для всех иконок - БЕЗ ФОНА */
+.social-icons {
+    display: flex;
+    justify-content: center; /* Центрирует иконки горизонтально */
+    gap: 15px; /* Пространство между иконками */
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Ссылка-обертка для каждой иконки - БЕЗ ФОНА */
+.icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    width: 30px; /* Размер области иконки */
+    height: 30px; /* Размер области иконки */
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Тень остается */
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+
+/* Эффект при наведении */
+.icon-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Стили для самого изображения иконки */
+.icon-image {
+    width: 100%; /* Изображение заполняет всю область .icon-link */
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+  </style>
+
+
+
+
+
+
+
+    </div>
+
+    <script>
+        // State variables
+        let isRussian = false;
+
+        // 1. GMT+5 Clock with Language Logic
+        function updateClock() {
+            const now = new Date();
+            const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+            const kzTime = new Date(utcTime + (3600000 * 5));
+
+            const hours = String(kzTime.getHours()).padStart(2, '0');
+            const minutes = String(kzTime.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+
+            document.getElementById('main-clock').innerText = timeString;
+            document.getElementById('sb-time').innerText = timeString;
+
+            // Date Formatting
+            const year = kzTime.getFullYear();
+            const month = String(kzTime.getMonth() + 1).padStart(2, '0');
+            const day = String(kzTime.getDate()).padStart(2, '0');
+            
+            // Dictionaries for Day Names
+            const daysRu = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+            const daysCn = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            
+            const dayIndex = kzTime.getDay();
+            const dayName = isRussian ? daysRu[dayIndex] : daysCn[dayIndex];
+
+            document.getElementById('date-display').innerText = `${year}-${month}-${day} ${dayName}`;
+        }
+
+        // 2. Volume Slider Logic
+        const volSlider = document.getElementById('vol-slider');
+        const volFill = document.getElementById('vol-fill');
+        const volVal = document.getElementById('vol-val');
+        let isDragging = false;
+
+        function setVolume(y) {
+            const rect = volSlider.getBoundingClientRect();
+            // Calculate height from bottom
+            let height = rect.bottom - y;
+            // Clamp values
+            if (height < 0) height = 0;
+            if (height > rect.height) height = rect.height;
+            
+            const percent = (height / rect.height) * 100;
+            const value = Math.round((percent / 100) * 100); // Max volume 
+
+            volFill.style.height = `${percent}%`;
+            volVal.innerText = value;
+        }
+
+        volSlider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            setVolume(e.clientY);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                setVolume(e.clientY);
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // 3. Translation Logic
+        function translateSystem() {
+            if (isRussian) return; // Already translated
+            
+            isRussian = true;
+            const elements = document.querySelectorAll('.lang-text');
+            
+            elements.forEach(el => {
+                // Simple fade effect manually
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    el.innerText = el.getAttribute('data-ru');
+                    el.style.opacity = 1;
+                }, 200);
+            });
+
+            // Trigger button animation
+            const btn = document.querySelector('.rus-btn');
+            btn.innerText = "Готово!";
+            btn.style.background = "#fff";
+            btn.style.color = "#0288d1";
+            
+            // Force clock update to switch day language immediately
+            updateClock();
+        }
+
+        // Init
+        setInterval(updateClock, 1000);
+        updateClock();
+
+    </script>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+<div class="device-frame">
+        <div class="screen-bg"></div>
+
+        <div class="interface-layer">
+            
+            <div class="sidebar">
+                <i class="fas fa-location-arrow nav-icon"></i>
+                <i class="fas fa-music nav-icon"></i>
+                <div class="nav-icon active"><i class="fas fa-th-large"></i></div>
+                
+                <div class="volume-container" id="vol-slider">
+                    <div class="volume-level" id="vol-fill"></div>
+                    <span class="vol-text" id="vol-val">18</span>
+                    <i class="fas fa-volume-up vol-icon"></i>
+                </div>
+            </div>
+
+            <div class="status-bar">
+                <span id="sb-time">--:--</span>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+                <i class="fas fa-reply" style="margin-left: 20px;"></i>
+            </div>
+
+            <div class="info-panel">
+                <div class="clock-widget">
+                    <i class="far fa-clock clock-icon"></i>
+                    <div class="time-big" id="main-clock">--:--</div>
+                    <div class="date-text" id="date-display" data-ru="">--</div>
+                </div>
+                
+                <div class="car-display">
+<img src="ttt.jpg" class="car-img" alt="Car">
+                </div>
+            </div>
+
+            <div class="card music-card">
+                <div class="card-header">
+                    <span class="r1-logo">R1</span> 
+                    <span class="lang-text" data-cn="RUSONE" data-ru="РУС№1">RUSONE</span>
+                </div>
+                <div class="music-content">
+                    <div class="toyota-logo-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" class="toyota-img" alt="Toyota Logo">
+                    </div>
+                    <div class="track-info">
+                        <div class="track-title lang-text" data-cn="系统更新" data-ru="Русификация">系统更新</div>
+                    </div>
+                    
+                    <button class="rus-btn" onclick="translateSystem()">Русифицировать</button>
+                </div>
+            </div>
+
+            <div class="card nav-card">
+                <div class="card-header">
+                    <i class="fab fa-whatsapp" style="font-size: 20px;"></i> 
+                    <span class="lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</span>
+                </div>
+                <div class="nav-content">
+                    <i class="fab fa-whatsapp whatsapp-icon-main"></i>
+                    <div class="bottom-label lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</div>
+                </div>
+            </div>
+
+            <div class="card radio-card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> 
+                    <span class="lang-text" data-cn="信息" data-ru="Информация">信息</span>
+                </div>
+                <div class="radio-content">
+                    <div class="translation-text lang-text" 
+                         data-cn="将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。" 
+                         data-ru="Перевод меню, настроек, кнопок и всех текстовых элементов системы на чистый русский язык.">
+                         将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。
+                    </div>
+                    
+                    <div class="vko-controls">
+                        <div class="vko-tag lang-text" data-cn="东哈州" data-ru="ВКО">东哈州</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hardware-bar">
+            <div class="social-icons">
+    <a href="ВАША_ССЫЛКА_WHATSAPP" target="_blank" class="icon-link whatsapp">
+        <img src="ttt.jpg" class="icon-image">
+    </a>
+
+    <a href="ВАША_ССЫЛКА_INSTAGRAM" target="_blank" class="icon-link instagram">
+        <img src="ttt.jpg" class="icon-image">
+    </a>
+
+    <a href="ВАША_ССЫЛКА_TELEGRAM" target="_blank" class="icon-link telegram">
+        <img src="ttt.jpg" class="icon-image">
+    </a>
+
+    <a href="ВАША_ССЫЛКА_2GIS" target="_blank" class="icon-link 2gis">
+        <img src="ttt.jpg" class="icon-image">
+    </a>
+
+    <a href="ВАША_ССЫЛКА_САЙТ" target="_blank" class="icon-link website">
+        <img src="ttt.jpg" class="icon-image">
+    </a>
+</div>
+        </div>
+
 
 
 
@@ -781,6 +1048,7 @@
 </body>
 
 </html>
+
 
 
 
