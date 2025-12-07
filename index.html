@@ -537,672 +537,554 @@
 
 
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+
+
 
 <style>
-    /* --- CSS VARIABLES --- */
-    :root {
-        --bg-core: #02050a;
-        --card-music-start: #4fc3f7;
-        --card-music-end: #0288d1;
-        --card-whatsapp: #25D366;
-        --card-whatsapp-dark: #128C7E;
-        --card-info: #A3C316;
-        --card-info-dark: #789010;
-        --text-white: #ffffff;
-        --text-dim: rgba(255, 255, 255, 0.7);
-        --sidebar-width: 70px;
-        --gap: 15px;
-        --radius: 12px;
-    }
-
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        user-select: none;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Стили для родительского контейнера на сайте, куда будет вставлен фрейм. */
-    body {
-        /* Если вы вставляете в существующий сайт, вы можете удалить эти 5 строк, 
-           чтобы избежать конфликтов со стилями вашего сайта. */
-        background-color: #000;
-        color: var(--text-white);
-        font-family: 'Roboto', sans-serif;
-        height: 100vh;
-        width: 100vw;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* --- DEVICE FRAME --- */
-    .device-frame {
-        width: 100%;
-        max-width: 1200px;
-        aspect-ratio: 16/7;
-        background: var(--bg-core);
-        border: 20px solid #2a2a2a;
-        border-radius: 4px;
-        box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.8);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* --- BACKGROUND --- */
-    .screen-bg {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 40px;
-        background: radial-gradient(circle at center, #0d2346 0%, #02050a 70%);
-        z-index: 0;
-    }
-    .screen-bg::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: -50%; width: 200%; height: 50%;
-        background-image: radial-gradient(rgba(41, 121, 255, 0.2) 1px, transparent 1px);
-        background-size: 20px 20px;
-        transform: perspective(500px) rotateX(60deg);
-        mask-image: linear-gradient(to top, rgba(0,0,0,1), transparent);
-        pointer-events: none;
-    }
-
-    /* --- LAYOUT --- */
-    .interface-layer {
-        position: relative;
-        z-index: 1;
-        flex: 1;
-        display: grid;
-        grid-template-columns: var(--sidebar-width) 1.5fr 2fr 1fr 1fr;
-        grid-template-rows: 40px 1fr;
-        gap: 0 var(--gap);
-        padding: 10px 20px 10px 0;
-    }
-
-    /* --- SIDEBAR --- */
-    .sidebar {
-        grid-row: 1 / -1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 10px;
-        background: rgba(0, 0, 0, 0.65); 
-        backdrop-filter: blur(5px);
-        border-right: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .nav-icon {
-        font-size: 24px;
-        margin-bottom: 30px;
-        color: var(--text-white);
-        opacity: 0.6;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    .nav-icon:hover { opacity: 1; }
-    .nav-icon.active { opacity: 1; text-shadow: 0 0 10px rgba(33, 150, 243, 0.8); }
-
-    /* --- VOLUME SLIDER (INTERACTIVE) --- */
-    .volume-container {
-        margin-top: auto;
-        margin-bottom: 50px;
-        width: 36px;
-        height: 140px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 18px;
-        position: relative;
-        overflow: hidden;
-        cursor: pointer;
-        touch-action: none;
-    }
-    .volume-level {
-        position: absolute; bottom: 0; width: 100%; 
-        height: 40%; /* Initial value */
-        background: linear-gradient(to top, #2196f3, #64b5f6);
-        transition: height 0.1s linear;
-        pointer-events: none;
-    }
-    .vol-text { position: absolute; bottom: 28px; width: 100%; text-align: center; font-size: 10px; font-weight: bold; pointer-events: none; }
-    .vol-icon { position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 12px; pointer-events: none; }
-
-    /* --- STATUS BAR --- */
-    .status-bar {
-        grid-column: 2 / -1;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-right: 10px;
-        font-size: 14px;
-    }
-    .status-bar i { margin-left: 15px; font-size: 16px; opacity: 0.8; }
-
-    /* --- CLOCK & CAR --- */
-    .info-panel {
-        grid-column: 2;
-        grid-row: 2;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-bottom: 20px;
-    }
-    .clock-widget { margin-top: 20px; }
-    .clock-icon { font-size: 28px; margin-bottom: 5px; opacity: 0.7; }
-    .time-big {
-        font-size: 86px;
-        font-weight: 100;
-        line-height: 1;
-        letter-spacing: -2px;
-        font-variant-numeric: tabular-nums;
-    }
-    .date-text { font-size: 16px; color: var(--text-dim); margin-top: 5px; }
-
-    .car-display { width: 100%; height: 150px; position: relative; }
-    .car-img {
-        width: 20%;
-        position: absolute;
-        bottom: -10px;
-        left: -10%;
-        filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.5));
-        transition: transform 0.5s ease;
-    }
-    .car-display:hover .car-img { transform: scale(1.02) translateY(-2px); }
-
-    /* --- CARDS GENERAL --- */
-    .card {
-        border-radius: var(--radius);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-        margin-bottom: 20px;
-        position: relative;
-        transition: transform 0.2s ease;
-    }
-    .card:active { transform: scale(0.98); }
-
-    .card-header {
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        font-weight: 500;
-        font-size: 16px;
-    }
-    .card-header i, .card-header .header-logo { margin-right: 10px; opacity: 0.6; }
-
-    /* --- MUSIC CARD --- */
-    .music-card {
-        grid-column: 3;
-        grid-row: 2;
-        background: linear-gradient(135deg, var(--card-music-start), var(--card-music-end));
-    }
-    .r1-logo {
-        font-weight: 900; font-style: italic; font-size: 18px;
-        background: #fff; color: var(--card-music-end);
-        padding: 0 4px; border-radius: 2px; display: inline-block;
-        margin-right: 10px; opacity: 0.8;
-    }
-
-    .music-content {
-        flex: 1; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; padding: 0 20px 20px;
-    }
-    .toyota-logo-container {
-        width: 100px; height: 100px;
-        display: flex; align-items: center; justify-content: center;
-        margin-bottom: 10px;
-    }
-    .toyota-img { width: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
-
-    .track-info { text-align: center; margin-bottom: 15px; }
-    .track-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
-    .track-artist { font-size: 14px; opacity: 0.8; }
-
-    .rus-btn {
-        background: rgba(255,255,255,0.2);
-        border: 1px solid rgba(255,255,255,0.4);
-        color: white;
-        padding: 12px 30px;
-        border-radius: 30px;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        backdrop-filter: blur(4px);
-        transition: all 0.2s;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        margin-top: 10px;
-        text-transform: uppercase;
-    }
-    .rus-btn:hover {
-        background: #fff; color: var(--card-music-end);
-        box-shadow: 0 0 20px rgba(255,255,255,0.6);
-        transform: scale(1.05);
-    }
-
-    /* --- WHATSAPP CARD --- */
-    .nav-card {
-        grid-column: 4;
-        grid-row: 2;
-        background: linear-gradient(160deg, var(--card-whatsapp), var(--card-whatsapp-dark));
-    }
-    .nav-content {
-        flex: 1; display: flex; flex-direction: column;
-        justify-content: center; align-items: center; position: relative;
-    }
-    .whatsapp-icon-main {
-        font-size: 70px; margin-bottom: 20px;
-        filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
-    }
-    .bottom-label {
-        position: absolute; bottom: 20px;
-        font-size: 16px; font-weight: 500; opacity: 0.9;
-    }
-
-    /* --- INFO CARD (Ex-Radio/2GIS) --- */
-    .radio-card {
-        grid-column: 5;
-        grid-row: 2;
-        background: linear-gradient(160deg, var(--card-info), var(--card-info-dark));
-    }
-    .radio-content {
-        flex: 1; display: flex; flex-direction: column;
-        justify-content: center; align-items: center;
-        padding: 15px;
-        text-align: center;
-    }
-
-    .translation-text {
-        font-size: 13px;
-        line-height: 1.5;
-        color: #fff;
-        font-weight: 400;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    }
-    .vko-controls {
-        display: flex; gap: 10px; margin-top: 20px;
-    }
-    .vko-tag {
-        background: rgba(0,0,0,0.2); padding: 5px 10px;
-        border-radius: 4px; font-size: 12px; font-weight: bold;
-    }
-
-    /* --- HARDWARE BAR --- */
-    .hardware-bar {
-        height: 50px; background: #000;
-        display: flex; justify-content: center; align-items: center;
-        gap: 60px; z-index: 10; border-top: 1px solid #222;
-    }
-    .hw-btn {
-        color: #ddd; font-size: 18px; cursor: pointer; transition: color 0.2s;
-    }
-    .hw-btn:active { color: #fff; }
-
-    /* --- DEMO PANEL STYLES --- */
-    .demo-panel-toggle {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        z-index: 1000;
-        width: 30px;
-        height: 30px;
-        background: #FF5722; /* Deep Orange */
-        border-radius: 4px 0 0 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        box-shadow: -2px 0 5px rgba(0,0,0,0.3);
-        color: white;
-        font-size: 14px;
-        transition: right 0.3s;
-    }
-
-    .demo-panel {
-        position: fixed;
-        top: 50%;
-        right: -220px; /* Hidden state */
-        transform: translateY(-50%);
-        width: 200px;
-        background: rgba(18, 140, 126, 0.9); /* Matching WhatsApp card color */
-        backdrop-filter: blur(5px);
-        border-radius: 8px 0 0 8px;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-        padding: 15px;
-        z-index: 999;
-        transition: right 0.3s;
-        color: white;
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .demo-panel.open {
-        right: 0;
-    }
-
-    .demo-panel h4 {
-        margin-bottom: 15px;
-        font-weight: 500;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        padding-bottom: 5px;
-        font-size: 16px;
-    }
-
-    .demo-panel button {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 10px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.2s;
-        text-transform: uppercase;
-    }
-
-    #toggle-lang-btn {
-        background: #FFEB3B;
-        color: #333;
-    }
-    #toggle-lang-btn:hover {
-        background: #FBC02D;
-    }
-
-    /* Стили для иконок внизу */
-    .social-icons {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        padding: 10px;
-        border-radius: 8px;
-    }
-
-    .icon-link {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s, box-shadow 0.2s;
-        overflow: hidden;
-    }
-
-    .icon-link:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .icon-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-    }
-</style>
-
-<div class="demo-panel" id="demo-panel">
-    <h4>ДЕМО ПАНЕЛЬ</h4>
-    <button id="toggle-lang-btn" onclick="toggleLanguage()">Сменить язык (CN)</button>
-    <small style="display: block; text-align: center; opacity: 0.7; font-size: 10px; margin-top: 15px;">Только для демонстрации</small>
-</div>
-
-<div class="demo-panel-toggle" id="demo-toggle-btn">
-    <i class="fas fa-tools"></i>
-</div>
-
-<div class="device-frame">
-    <div class="screen-bg"></div>
-
-    <div class="interface-layer">
-
-        <div class="sidebar">
-            <i class="fas fa-location-arrow nav-icon"></i>
-            <i class="fas fa-music nav-icon"></i>
-            <div class="nav-icon active"><i class="fas fa-th-large"></i></div>
-
-            <div class="volume-container" id="vol-slider">
-                <div class="volume-level" id="vol-fill"></div>
-                <span class="vol-text" id="vol-val">18</span>
-                <i class="fas fa-volume-up vol-icon"></i>
-            </div>
-        </div>
-
-        <div class="status-bar">
-            <span id="sb-time">--:--</span>
-            <i class="fas fa-wifi"></i>
-            <i class="fas fa-battery-full"></i>
-            <i class="fas fa-reply" style="margin-left: 20px;"></i>
-        </div>
-
-        <div class="info-panel">
-            <div class="clock-widget">
-                <i class="far fa-clock clock-icon"></i>
-                <div class="time-big" id="main-clock">--:--</div>
-                <div class="date-text" id="date-display" data-ru="">--</div>
-            </div>
-
-            <div class="car-display">
-                <img src="ttt.jpg" class="car-img" alt="Car">
-            </div>
-        </div>
-
-        <div class="card music-card">
-            <div class="card-header">
-                <span class="r1-logo">R1</span> 
-                <span class="lang-text" data-cn="RUSONE" data-ru="РУС№1">RUSONE</span>
-            </div>
-            <div class="music-content">
-                <div class="toyota-logo-container">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" class="toyota-img" alt="Toyota Logo">
-                </div>
-                <div class="track-info">
-                    <div class="track-title lang-text" data-cn="系统更新" data-ru="Русификация">系统更新</div>
-                </div>
-
-                <button class="rus-btn" onclick="toggleLanguage()">Русифицировать</button>
-            </div>
-        </div>
-
-        <div class="card nav-card">
-            <div class="card-header">
-                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> 
-                <span class="lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</span>
-            </div>
-            <div class="nav-content">
-                <i class="fab fa-whatsapp whatsapp-icon-main"></i>
-                <div class="bottom-label lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</div>
-            </div>
-        </div>
-
-        <div class="card radio-card">
-            <div class="card-header">
-                <i class="fas fa-info-circle"></i> 
-                <span class="lang-text" data-cn="信息" data-ru="Информация">信息</span>
-            </div>
-            <div class="radio-content">
-                <div class="translation-text lang-text" 
-                     data-cn="将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。" 
-                     data-ru="Перевод меню, настроек, кнопок и всех текстовых элементов системы на чистый русский язык.">
-                    将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。
-                </div>
-
-                <div class="vko-controls">
-                    <div class="vko-tag lang-text" data-cn="东哈州" data-ru="ВКО">东哈州</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="hardware-bar">
-        <div class="social-icons">
-            <a href="ВАША_ССЫЛКА_WHATSAPP" target="_blank" class="icon-link whatsapp">
-                <img src="ttt.jpg" class="icon-image" alt="WhatsApp">
-            </a>
-            <a href="ВАША_ССЫЛКА_INSTAGRAM" target="_blank" class="icon-link instagram">
-                <img src="ttt.jpg" class="icon-image" alt="Instagram">
-            </a>
-            <a href="ВАША_ССЫЛКА_TELEGRAM" target="_blank" class="icon-link telegram">
-                <img src="ttt.jpg" class="icon-image" alt="Telegram">
-            </a>
-            <a href="ВАША_ССЫЛКА_2GIS" target="_blank" class="icon-link 2gis">
-                <img src="ttt.jpg" class="icon-image" alt="2GIS">
-            </a>
-            <a href="ВАША_ССЫЛКА_САЙТ" target="_blank" class="icon-link website">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" class="icon-image" alt="Website">
-            </a>
-        </div>
-    </div>
-</div>
-
-<script>
-    // State variables
-    let isRussian = false;
-
-    // 1. GMT+5 Clock with Language Logic
-    function updateClock() {
-        const now = new Date();
-        const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
-        // UTC+5 Time Zone (Kazakhstan Time)
-        const kzTime = new Date(utcTime + (3600000 * 5)); 
-
-        const hours = String(kzTime.getHours()).padStart(2, '0');
-        const minutes = String(kzTime.getMinutes()).padStart(2, '0');
-        const timeString = `${hours}:${minutes}`;
-
-        document.getElementById('main-clock').innerText = timeString;
-        document.getElementById('sb-time').innerText = timeString;
-
-        // Date Formatting
-        const year = kzTime.getFullYear();
-        const month = String(kzTime.getMonth() + 1).padStart(2, '0');
-        const day = String(kzTime.getDate()).padStart(2, '0');
-
-        // Dictionaries for Day Names
-        const daysRu = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
-        const daysCn = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
-
-        const dayIndex = kzTime.getDay();
-        const dayName = isRussian ? daysRu[dayIndex] : daysCn[dayIndex];
-
-        document.getElementById('date-display').innerText = `${year}-${month}-${day} ${dayName}`;
-    }
-
-    // 2. Volume Slider Logic
-    const volSlider = document.getElementById('vol-slider');
-    const volFill = document.getElementById('vol-fill');
-    const volVal = document.getElementById('vol-val');
-    let isDragging = false;
-
-    function setVolume(y) {
-        const rect = volSlider.getBoundingClientRect();
-        let height = rect.bottom - y;
-        if (height < 0) height = 0;
-        if (height > rect.height) height = rect.height;
-
-        const percent = (height / rect.height) * 100;
-        const value = Math.round((percent / 100) * 100);
-
-        volFill.style.height = `${percent}%`;
-        volVal.innerText = value;
-    }
-
-    volSlider.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        setVolume(e.clientY);
-    });
-
-    window.addEventListener('mousemove', (e) => {
-        if (isDragging) {
-            setVolume(e.clientY);
+        /* --- CSS VARIABLES --- */
+        :root {
+            --bg-core: #02050a;
+            --card-music-start: #4fc3f7;
+            --card-music-end: #0288d1;
+            --card-whatsapp: #25D366;
+            --card-whatsapp-dark: #128C7E;
+            --card-info: #A3C316;
+            --card-info-dark: #789010;
+            --text-white: #ffffff;
+            --text-dim: rgba(255, 255, 255, 0.7);
+            --sidebar-width: 70px;
+            --gap: 15px;
+            --radius: 12px;
         }
-    });
 
-    window.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
 
+        body {
+            background-color: #000;
+            color: var(--text-white);
+            font-family: 'Roboto', sans-serif;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    // 3. Translation Logic (Simplified functions for clarity)
+        /* --- DEVICE FRAME --- */
+        .device-frame {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/7;
+            background: var(--bg-core);
+            border: 20px solid #2a2a2a;
+            border-radius: 4px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,1), 0 0 50px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
 
-    function applyTranslation(targetLanguage) {
-        const elements = document.querySelectorAll('.lang-text');
+        /* --- BACKGROUND --- */
+        .screen-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 40px;
+            background: radial-gradient(circle at center, #0d2346 0%, #02050a 70%);
+            z-index: 0;
+        }
+        .screen-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: -50%; width: 200%; height: 50%;
+            background-image: radial-gradient(rgba(41, 121, 255, 0.2) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transform: perspective(500px) rotateX(60deg);
+            mask-image: linear-gradient(to top, rgba(0,0,0,1), transparent);
+            pointer-events: none;
+        }
+
+        /* --- LAYOUT --- */
+        .interface-layer {
+            position: relative;
+            z-index: 1;
+            flex: 1;
+            display: grid;
+            grid-template-columns: var(--sidebar-width) 1.5fr 2fr 1fr 1fr;
+            grid-template-rows: 40px 1fr;
+            gap: 0 var(--gap);
+            padding: 10px 20px 10px 0;
+        }
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            grid-row: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            background: rgba(0, 0, 0, 0.65); 
+            backdrop-filter: blur(5px);
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-icon {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: var(--text-white);
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-icon:hover { opacity: 1; }
+        .nav-icon.active { opacity: 1; text-shadow: 0 0 10px rgba(33, 150, 243, 0.8); }
+
+        /* --- VOLUME SLIDER (INTERACTIVE) --- */
+        .volume-container {
+            margin-top: auto;
+            margin-bottom: 50px;
+            width: 36px;
+            height: 140px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 18px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            touch-action: none;
+        }
+        .volume-level {
+            position: absolute; bottom: 0; width: 100%; 
+            height: 40%; /* Initial value */
+            background: linear-gradient(to top, #2196f3, #64b5f6);
+            transition: height 0.1s linear;
+            pointer-events: none;
+        }
+        .vol-text { position: absolute; bottom: 28px; width: 100%; text-align: center; font-size: 10px; font-weight: bold; pointer-events: none; }
+        .vol-icon { position: absolute; bottom: 10px; width: 100%; text-align: center; font-size: 12px; pointer-events: none; }
+
+        /* --- STATUS BAR --- */
+        .status-bar {
+            grid-column: 2 / -1;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding-right: 10px;
+            font-size: 14px;
+        }
+        .status-bar i { margin-left: 15px; font-size: 16px; opacity: 0.8; }
+
+        /* --- CLOCK & CAR --- */
+        .info-panel {
+            grid-column: 2;
+            grid-row: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding-bottom: 20px;
+        }
+        .clock-widget { margin-top: 20px; }
+        .clock-icon { font-size: 28px; margin-bottom: 5px; opacity: 0.7; }
+        .time-big {
+            font-size: 86px;
+            font-weight: 100;
+            line-height: 1;
+            letter-spacing: -2px;
+            font-variant-numeric: tabular-nums;
+        }
+        .date-text { font-size: 16px; color: var(--text-dim); margin-top: 5px; }
+
+        .car-display { width: 100%; height: 150px; position: relative; }
+        .car-img {
+            width: 20%;
+            position: absolute;
+            bottom: -10px;
+            left: -10%;
+            filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.5));
+            transition: transform 0.5s ease;
+        }
+        .car-display:hover .car-img { transform: scale(1.02) translateY(-2px); }
+
+        /* --- CARDS GENERAL --- */
+        .card {
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+        .card:active { transform: scale(0.98); }
         
-        elements.forEach(el => {
-            el.style.opacity = 0;
-            setTimeout(() => {
-                const text = el.getAttribute(`data-${targetLanguage}`);
-                if(text) el.innerText = text;
-                el.style.opacity = 1;
-            }, 200);
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        .card-header i, .card-header .header-logo { margin-right: 10px; opacity: 0.6; }
+
+        /* --- MUSIC CARD --- */
+        .music-card {
+            grid-column: 3;
+            grid-row: 2;
+            background: linear-gradient(135deg, var(--card-music-start), var(--card-music-end));
+        }
+        .r1-logo {
+            font-weight: 900; font-style: italic; font-size: 18px;
+            background: #fff; color: var(--card-music-end);
+            padding: 0 4px; border-radius: 2px; display: inline-block;
+            margin-right: 10px; opacity: 0.8;
+        }
+
+        .music-content {
+            flex: 1; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 0 20px 20px;
+        }
+        .toyota-logo-container {
+            width: 100px; height: 100px;
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 10px;
+        }
+        .toyota-img { width: 100%; filter: drop-shadow(0 0 5px rgba(255,255,255,0.4)); }
+
+        .track-info { text-align: center; margin-bottom: 15px; }
+        .track-title { font-size: 20px; font-weight: 700; margin-bottom: 4px; letter-spacing: 0.5px; }
+        .track-artist { font-size: 14px; opacity: 0.8; }
+
+        .rus-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.4);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+        .rus-btn:hover {
+            background: #fff; color: var(--card-music-end);
+            box-shadow: 0 0 20px rgba(255,255,255,0.6);
+            transform: scale(1.05);
+        }
+
+        /* --- WHATSAPP CARD --- */
+        .nav-card {
+            grid-column: 4;
+            grid-row: 2;
+            background: linear-gradient(160deg, var(--card-whatsapp), var(--card-whatsapp-dark));
+        }
+        .nav-content {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; position: relative;
+        }
+        .whatsapp-icon-main {
+            font-size: 70px; margin-bottom: 20px;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.2));
+        }
+        .bottom-label {
+            position: absolute; bottom: 20px;
+            font-size: 16px; font-weight: 500; opacity: 0.9;
+        }
+
+        /* --- INFO CARD (Ex-Radio/2GIS) --- */
+        .radio-card {
+            grid-column: 5;
+            grid-row: 2;
+            background: linear-gradient(160deg, var(--card-info), var(--card-info-dark));
+        }
+        .radio-content {
+            flex: 1; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .translation-text {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #fff;
+            font-weight: 400;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .vko-controls {
+            display: flex; gap: 10px; margin-top: 20px;
+        }
+        .vko-tag {
+            background: rgba(0,0,0,0.2); padding: 5px 10px;
+            border-radius: 4px; font-size: 12px; font-weight: bold;
+        }
+
+        /* --- HARDWARE BAR --- */
+        .hardware-bar {
+            height: 50px; background: #000;
+            display: flex; justify-content: center; align-items: center;
+            gap: 60px; z-index: 10; border-top: 1px solid #222;
+        }
+        .hw-btn {
+            color: #ddd; font-size: 18px; cursor: pointer; transition: color 0.2s;
+        }
+        .hw-btn:active { color: #fff; }
+
+        /* --- SOCIAL ICONS STYLES --- */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        .icon-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            overflow: hidden;
+        }
+        .icon-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .icon-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="device-frame">
+        <div class="screen-bg"></div>
+
+        <div class="interface-layer">
+            
+            <div class="sidebar">
+                <i class="fas fa-location-arrow nav-icon"></i>
+                <i class="fas fa-music nav-icon"></i>
+                <div class="nav-icon active"><i class="fas fa-th-large"></i></div>
+                
+                <div class="volume-container" id="vol-slider">
+                    <div class="volume-level" id="vol-fill"></div>
+                    <span class="vol-text" id="vol-val">18</span>
+                    <i class="fas fa-volume-up vol-icon"></i>
+                </div>
+            </div>
+
+            <div class="status-bar">
+                <span id="sb-time">--:--</span>
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-battery-full"></i>
+                <i class="fas fa-reply" style="margin-left: 20px;"></i>
+            </div>
+
+            <div class="info-panel">
+                <div class="clock-widget">
+                    <i class="far fa-clock clock-icon"></i>
+                    <div class="time-big" id="main-clock">--:--</div>
+                    <div class="date-text" id="date-display" data-ru="">--</div>
+                </div>
+                
+                <div class="car-display">
+                    <img src="ttt.jpg" class="car-img" alt="Car">
+                </div>
+            </div>
+
+            <div class="card music-card">
+                <div class="card-header">
+                    <span class="r1-logo">R1</span> 
+                    <span class="lang-text" data-cn="RUSONE" data-ru="РУС№1">RUSONE</span>
+                </div>
+                <div class="music-content">
+                    <div class="toyota-logo-container">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" class="toyota-img" alt="Toyota Logo">
+                    </div>
+                    <div class="track-info">
+                        <div class="track-title lang-text" data-cn="系统更新" data-ru="Русификация">系统更新</div>
+                    </div>
+                    
+                    <button class="rus-btn" onclick="translateSystem()">Русифицировать</button>
+                </div>
+            </div>
+
+            <div class="card nav-card">
+                <div class="card-header">
+                    <i class="fab fa-whatsapp" style="font-size: 20px;"></i> 
+                    <span class="lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</span>
+                </div>
+                <div class="nav-content">
+                    <i class="fab fa-whatsapp whatsapp-icon-main"></i>
+                    <div class="bottom-label lang-text" data-cn="WhatsApp" data-ru="Ватсап">WhatsApp</div>
+                </div>
+            </div>
+
+            <div class="card radio-card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i> 
+                    <span class="lang-text" data-cn="信息" data-ru="Информация">信息</span>
+                </div>
+                <div class="radio-content">
+                    <div class="translation-text lang-text" 
+                            data-cn="将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。" 
+                            data-ru="Перевод меню, настроек, кнопок и всех текстовых элементов системы на чистый русский язык.">
+                            将菜单、设置、按钮和所有系统文本元素翻译成纯俄语。
+                    </div>
+                    
+                    <div class="vko-controls">
+                        <div class="vko-tag lang-text" data-cn="东哈州" data-ru="ВКО">东哈州</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hardware-bar">
+            <div class="social-icons">
+                <a href="ВАША_ССЫЛКА_WHATSAPP" target="_blank" class="icon-link whatsapp">
+                    <img src="ttt.jpg" class="icon-image" alt="WhatsApp">
+                </a>
+                <a href="ВАША_ССЫЛКА_INSTAGRAM" target="_blank" class="icon-link instagram">
+                    <img src="ttt.jpg" class="icon-image" alt="Instagram">
+                </a>
+                <a href="ВАША_ССЫЛКА_TELEGRAM" target="_blank" class="icon-link telegram">
+                    <img src="ttt.jpg" class="icon-image" alt="Telegram">
+                </a>
+                <a href="ВАША_ССЫЛКА_2GIS" target="_blank" class="icon-link 2gis">
+                    <img src="ttt.jpg" class="icon-image" alt="2GIS">
+                </a>
+                <a href="ВАША_ССЫЛКА_САЙТ" target="_blank" class="icon-link website">
+                    <img src="ttt.jpg" class="icon-image" alt="Website">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State variables
+        let isRussian = false;
+
+        // 1. GMT+5 Clock with Language Logic
+        function updateClock() {
+            const now = new Date();
+            const utcTime = now.getTime() + (now.getTimezoneOffset() * 60000);
+            // UTC+5 Time Zone (Kazakhstan Time)
+            const kzTime = new Date(utcTime + (3600000 * 5)); 
+
+            const hours = String(kzTime.getHours()).padStart(2, '0');
+            const minutes = String(kzTime.getMinutes()).padStart(2, '0');
+            const timeString = `${hours}:${minutes}`;
+
+            document.getElementById('main-clock').innerText = timeString;
+            document.getElementById('sb-time').innerText = timeString;
+
+            // Date Formatting
+            const year = kzTime.getFullYear();
+            const month = String(kzTime.getMonth() + 1).padStart(2, '0');
+            const day = String(kzTime.getDate()).padStart(2, '0');
+            
+            // Dictionaries for Day Names
+            const daysRu = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+            const daysCn = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            
+            const dayIndex = kzTime.getDay();
+            const dayName = isRussian ? daysRu[dayIndex] : daysCn[dayIndex];
+
+            document.getElementById('date-display').innerText = `${year}-${month}-${day} ${dayName}`;
+        }
+
+        // 2. Volume Slider Logic
+        const volSlider = document.getElementById('vol-slider');
+        const volFill = document.getElementById('vol-fill');
+        const volVal = document.getElementById('vol-val');
+        let isDragging = false;
+
+        function setVolume(y) {
+            const rect = volSlider.getBoundingClientRect();
+            // Calculate height from bottom
+            let height = rect.bottom - y;
+            // Clamp values
+            if (height < 0) height = 0;
+            if (height > rect.height) height = rect.height;
+            
+            const percent = (height / rect.height) * 100;
+            const value = Math.round((percent / 100) * 100); // Max volume 
+
+            volFill.style.height = `${percent}%`;
+            volVal.innerText = value;
+        }
+
+        volSlider.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            setVolume(e.clientY);
         });
 
-        const btn = document.querySelector('.rus-btn');
-        if (targetLanguage === 'ru') {
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                setVolume(e.clientY);
+            }
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // 3. Translation Logic
+        function translateSystem() {
+            if (isRussian) return; // Already translated
+            
+            isRussian = true;
+            const elements = document.querySelectorAll('.lang-text');
+            
+            elements.forEach(el => {
+                // Simple fade effect manually
+                el.style.opacity = 0;
+                setTimeout(() => {
+                    el.innerText = el.getAttribute('data-ru');
+                    el.style.opacity = 1;
+                }, 200);
+            });
+
+            // Trigger button animation
+            const btn = document.querySelector('.rus-btn');
             btn.innerText = "Готово!";
             btn.style.background = "#fff";
             btn.style.color = "#0288d1";
-            btn.style.boxShadow = '0 0 20px rgba(255,255,255,0.6)';
-            document.getElementById('toggle-lang-btn').innerText = "Сменить язык (RU)";
-        } else {
-            btn.innerText = "Русифицировать";
-            btn.style.background = "rgba(255,255,255,0.2)";
-            btn.style.color = "white";
-            btn.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
-            document.getElementById('toggle-lang-btn').innerText = "Сменить язык (CN)";
-        }
-        updateClock();
-    }
-
-    // Main toggle function for Demo Panel and Card Button
-    window.toggleLanguage = function() {
-        if (isRussian) {
-            isRussian = false;
-            applyTranslation('cn');
-        } else {
-            isRussian = true;
-            applyTranslation('ru');
-        }
-    }
-
-
-    // 4. Demo Panel UI toggle logic
-    document.addEventListener('DOMContentLoaded', () => {
-        const panel = document.getElementById('demo-panel');
-        const toggle = document.getElementById('demo-toggle-btn');
-        
-        // Initial volume setting
-        setVolume(volSlider.getBoundingClientRect().bottom - volSlider.offsetHeight * 0.4); 
-
-        toggle.addEventListener('click', () => {
-            panel.classList.toggle('open');
             
-            // Adjusting the toggle button position and icon
-            toggle.style.right = panel.classList.contains('open') ? '200px' : '0';
-            toggle.innerHTML = panel.classList.contains('open') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-tools"></i>';
+            // Force clock update to switch day language immediately
+            updateClock();
+        }
+
+        // Init/Setup
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial volume setting (approx 40% height)
+            const initialY = volSlider.getBoundingClientRect().bottom - volSlider.offsetHeight * 0.4;
+            setVolume(initialY); 
         });
-    });
 
-
-    // Init
-    setInterval(updateClock, 1000);
-    updateClock();
-</script>
-    
-
-
-
-
-
-
-
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
 
 
 
@@ -1452,6 +1334,7 @@
 </body>
 
 </html>
+
 
 
 
